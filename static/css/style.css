@@ -108,3 +108,18 @@ h2 {
     margin-top: -25px;
     margin-bottom: 20px;
 }
+
+.quiz-button {
+    margin-bottom: 20px;
+}
+
+.question {
+    margin-bottom: 50px;
+}
+
+#timer {
+    font-size: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,33 +1,51 @@
 {% extends 'base.html' %}
 
-{% block content %} 
+{% block content %}
 
 <script type="text/javascript">
     var starttime = Date.now();
 
     var socketio = io();
 
-    const UpdateValues = (data) => {
-        var timer = data.time;
-        var correct = data.correct;
+    let countdown = void 0;
+    clearInterval(countdown);
 
-        document.getElementById("Button1").disabled = true;
-        document.getElementById("Button2").disabled = true;
-        document.getElementById("Button3").disabled = true;
-        document.getElementById("Button4").disabled = true;
+    const UpdateValues = (data) => {
+        clearInterval(countdown);
+        var timer = 15;
+       
+        var correct = data.correct;
+        document.getElementById("Button1").disabled = false;
+        document.getElementById("Button2").disabled = false;
+        document.getElementById("Button3").disabled = false;
+        document.getElementById("Button4").disabled = false;
+
 
         document.getElementById("questionText").innerHTML = data.text;
         document.getElementById("Button1").innerHTML = data.btn1;
         document.getElementById("Button2").innerHTML = data.btn2;
         document.getElementById("Button3").innerHTML = data.btn3;
         document.getElementById("Button4").innerHTML = data.btn4;
-        
-        // Add Timer Here
 
-        document.getElementById("Button1").disabled = false;
-        document.getElementById("Button2").disabled = false;
-        document.getElementById("Button3").disabled = false;
-        document.getElementById("Button4").disabled = false;
+
+        document.getElementById("timer").innerHTML = timer;
+
+        countdown = window.setInterval(() => {
+            timer--;
+            document.getElementById("timer").innerHTML = timer;
+            if (timer == 0) {
+                clearInterval(countdown)
+                document.getElementById("Button1").disabled = true;
+                document.getElementById("Button2").disabled = true;
+                document.getElementById("Button3").disabled = true;
+                document.getElementById("Button4").disabled = true;
+                // document.getElementById("Button4").innerHTML = data.btn4;
+            };
+        }, 1000);
+
+
+
+
     };
 
     socketio.on("updateQuestions", (data) => {
@@ -58,21 +76,35 @@
         socketio.emit("answer", {buttonPressed: button, timedifference: (starttime - currenttime)});
     };
 
+
+
 </script>
 
 <form method="post" class="quiz">
+    <div class="timer">
+        <h1 id="timer">{{timer}}</h1>
+    </div>
     <div class="question">
         <h1 id="questionText">{{question.text}}</h1>
     </div>
-    <div class="timer"></div>
+
+    <!-- <div class="answer">
+        <h1 id="answer">{{question.text}}</h1>
+    </div> -->
+
+
     <div class="quiz-inputs">
         <div class="row">
-            <button class="quiz-button" id="Button1" name="Button1" onclick=Answer1()>{{question.btn1}}</button>
-            <button class="quiz-button" id="Button2" name="Button2" onclick=Answer2()>{{question.btn2}}</button>
+            <button class="quiz-button btn btn-success" id="Button1" name="Button1"
+                onclick=Answer1()>{{question.btn1}}</button>
+            <button class="quiz-button btn btn-danger" id="Button2" name="Button2"
+                onclick=Answer2()>{{question.btn2}}</button>
         </div>
         <div class="row">
-            <button class="quiz-button" id="Button3" name="Button3" onclick=Answer3()>{{question.btn3}}</button>
-            <button class="quiz-button" id="Button4" name="Button4" onclick=Answer4()>{{question.btn4}}</button>
+            <button class="quiz-button btn btn-warning" id="Button3" name="Button3"
+                onclick=Answer3()>{{question.btn3}}</button>
+            <button class="quiz-button btn btn-info" id="Button4" name="Button4"
+                onclick=Answer4()>{{question.btn4}}</button>
         </div>
     </div>
 </form>
