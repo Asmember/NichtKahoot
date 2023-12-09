@@ -30,6 +30,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-top: 10px;
 }
 
 #join-button {
@@ -43,11 +44,7 @@
 #alert {
     margin-bottom: 5px;
 }
-/* 
-.form-outline {
-    --mdb-surface-color: white;
-    --mdb-form-control-label-color: white;
-} */
+
 
 .message-box {
     border-color: black;
