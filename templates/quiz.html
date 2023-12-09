@@ -3,7 +3,7 @@
 {% block content %}
 
 <script type="text/javascript">
-    var starttime = Date.now();
+    var starttime = new Date.now();
 
     var socketio = io();
 
@@ -66,24 +66,25 @@
     }
 
     const Answer = (button) => {
-        var currenttime = Date.now();
+        var currenttime = new Date.now();
 
         document.getElementById("Button1").disabled = true;
         document.getElementById("Button2").disabled = true;
         document.getElementById("Button3").disabled = true;
         document.getElementById("Button4").disabled = true;
 
-        socketio.emit("answer", {buttonPressed: button, timedifference: (starttime - currenttime)});
+        socketio.emit("answer", {buttonPressed: button, timedifference: (currenttime - starttime)});
     };
 
 
 
 </script>
 
-<form method="post" class="quiz">
+<form class="quiz">
     <div class="timer">
         <h1 id="timer">{{timer}}</h1>
     </div>
+
     <div class="question">
         <h1 id="questionText">{{question.text}}</h1>
     </div>

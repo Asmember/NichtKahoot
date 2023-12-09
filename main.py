@@ -7,13 +7,15 @@
 #
 ######################################################
 
-# pip install Flask
-# pip install flask-socketio
+######################
+# install needed modules:
+# pip install Flask flask-socketio
 
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO
 from string import ascii_uppercase
 import random
+import time
 import json
 import re
 
@@ -24,6 +26,10 @@ socketio = SocketIO(app)
 rooms = {}
 adminrooms = {}
 
+
+################### Functions
+
+# Generates a random uppercase roomcode
 def generate_unique_code(length):
     while True:
         code = ""
@@ -36,12 +42,53 @@ def generate_unique_code(length):
     
     return code
 
+# Changes the current question
+def changeCurrentQuestion(data, skipquestion):
+    adminroom = session.get("adminroom")
+    room = getRoomFromAdminRoom(adminroom)
+
+    currentquestion = rooms[room]["currentquestion"]
+
+    if data != False:
+        if currentquestion is None:
+            socketio.emit("error", "Keine Fragen eingetragen", to=adminroom)
+            return
+
+        if currentquestion + skipquestion >= 0 and currentquestion + skipquestion < len(json.loads(rooms[room]["questions"])):
+            rooms[room]["currentquestion"] += skipquestion
+            print("Room " + room + " chaneged to question " + str(currentquestion + skipquestion))
+            updateQuestions(adminroom)
+
+# Sends updated questions to all admin and user rooms
+def updateQuestions(adminroom):
+    room = getRoomFromAdminRoom(adminroom)
+            
+    questionobj = getCurrentQuestion(room)
+
+    curr = rooms[room]["currentquestion"]
+
+    questionobj[curr]["currentquestion"] = curr
+
+    content = questionobj[curr]
+
+    socketio.emit("updateQuestions", content, to=room)
+    socketio.emit("updateQuestions", {"testing" : "testing"}, to=adminroom)
+
+# Gets the current question from a room
+def getCurrentQuestion(room):
+    question = rooms[room]["questions"]
+            
+    return json.loads(question)
+
+# Gets the room code from adminroomcode
+def getRoomFromAdminRoom(adminroom):
+    return adminrooms[adminroom]
+
+
 #################### Routs
 
-@app.route("/admin", methods=["POST", "GET"])
+@app.route("/admin")
 def admin():
-    sendcontent = None
-
     adminroom = session.get("adminroom")
 
     if adminroom is None or adminroom not in adminrooms:
@@ -50,50 +97,6 @@ def admin():
     room = adminrooms[adminroom]
     currentquestion = rooms[room]["currentquestion"]
     users = rooms[room]["members"]
-    
-    if request.method == "POST":
-        questions = request.form.get("questions")
-        commit = request.form.get("commit", False)
-        kick = request.form.get("kick", False)
-        previous = request.form.get("previous", False)
-        result = request.form.get("results", False)
-        next = request.form.get("next", False)
-
-        updateQuestions = False
-
-        questions = re.sub('\s+',' ',questions)
-
-        if next != False:
-            if currentquestion is None:
-                return render_template("admin.html", admincode=adminroom, usercode=room, questions=questions, currentquestion=currentquestion, users=users, error="Keine Fragen eingetragen")
-            
-            if rooms[room]["currentquestion"] < len(rooms[room]["questions"]):
-                rooms[room]["currentquestion"] += 1
-
-            updateQuestions = True
-            
-        if previous != False:
-            if currentquestion is None:
-                return render_template("admin.html", admincode=adminroom, usercode=room, questions=questions, currentquestion=currentquestion, users=users, error="Keine Fragen eingetragen")
-            
-            if rooms[room]["currentquestion"] > 0:
-                rooms[room]["currentquestion"] -= 1
-
-            updateQuestions = True
-            
-        if commit != False:
-            rooms[room]["questions"] = questions
-            
-            if rooms[room]["currentquestion"] is None:
-                rooms[room]["currentquestion"] = 0
-
-            updateQuestions = True
-
-        if updateQuestions:
-            question = rooms[room]["questions"]
-            questionobj = json.loads(question)
-
-            socketio.emit("updateQuestions", questionobj[rooms[room]["currentquestion"]], to=room)
 
     questions = rooms[room]["questions"]
   
@@ -101,7 +104,6 @@ def admin():
     for name, score in users.items():
         tempusers.append({"name": name, "score": score["score"] })
 
-    tempusers
     return render_template("admin.html", admincode=adminroom, usercode=room, questions=questions, currentquestion=currentquestion, users=tempusers)
 
 @app.route("/quiz", methods=["POST", "GET"])
@@ -207,6 +209,36 @@ def home():
 #     rooms[room]["messages"].append(content)
 #     print(f"{name} said: {ddata}")
 
+
+################### Admin Controlls
+
+@socketio.on("previous")
+def previous(data):
+    changeCurrentQuestion(data, -1)
+
+@socketio.on("next")
+def next(data):
+    changeCurrentQuestion(data, 1)
+
+@socketio.on("commit")
+def adminChange(data):
+    adminroom = session.get("adminroom")
+    room = getRoomFromAdminRoom(adminroom)
+
+    currentquestion = rooms[room]["currentquestion"]
+
+    questions = re.sub('\s+', ' ', data["data"]["questions"])
+
+    rooms[room]["questions"] = questions
+    
+    if currentquestion is None:
+        rooms[room]["currentquestion"] = 0
+
+    updateQuestions(adminroom)
+
+
+################### User Actions
+
 @socketio.on("answer")
 def connect(data):
     room = session.get("room")
@@ -224,14 +256,20 @@ def connect(data):
     
     if data["buttonPressed"] == question["correct"]:
 
-        # percentile = data["timedifference"] * 100 / question["time"]
-        # value = 1000 / percentile
+        print(data["timedifference"])
 
-        timeTaken = round(question["time"]/1000 * (question["time"] - data["timedifference"]))
+        onepercent = 100 / question["time"] * 1000
+
+        percentile = data["timedifference"] / onepercent
+
+        timeTaken = round(percentile)
         
         rooms[room]["members"][name]["score"] += timeTaken
         
         socketio.emit("changeScore", {"name": name, "score": rooms[room]["members"][name]["score"]}, to=adminroom)   
+
+
+################### Other Handlers
 
 @socketio.on("connect")
 def connect(auth):
@@ -273,6 +311,7 @@ def disconnect():
 
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left room {room}")
+
 
 ########### Main
 

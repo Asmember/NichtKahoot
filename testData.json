@@ -6,7 +6,7 @@
         "btn3": "Kalle",
         "btn4": "Dieter",
         "correct": 2,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Wer gilt als heimlicher Stargitarrist der Gitarrenhelden?",
@@ -15,7 +15,7 @@
         "btn3": "Simon",
         "btn4": "Marius F.",
         "correct": 1,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Was gilt als das inoffizielle TRAFFIQX Maskottchen?",
@@ -24,7 +24,7 @@
         "btn3": "Schlange",
         "btn4": "Otter",
         "correct": 3,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Wer gehört nicht zur b4 Teslaflotte?",
@@ -33,7 +33,7 @@
         "btn3": "Steffen",
         "btn4": "Thorsten",
         "correct": 3,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Wer ist die jüngste und die älteste Person bei b4?",
@@ -42,16 +42,16 @@
         "btn3": "Armin, Armin",
         "btn4": "Leon, Bernd",
         "correct": 0,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Welcher Spruch begrüßt uns an der Kaffeemaschine?",
         "btn1": "Kaffee, der Sexy Wachmacher für die coolen Kids",
         "btn2": "Dieser Kaffee macht wach, jung und sexy",
-        "btn3": "Kaffee, der jugendliche Energiebooster für heiße Tage",
+        "btn3": "Kaffee, der jugendliche Energiebooster für kalte Tage",
         "btn4": "Programmierer, Menschen die Kaffee in Bugs verwandeln",
         "correct": 1,
-        "time": 45000
+        "time": 45
     },
     {
         "text": "Wieviel Geld wird pro Woche etwa für süßes ausgegeben?",
@@ -60,7 +60,7 @@
         "btn3": "42 Mark",
         "btn4": "621€",
         "correct": 1,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "Wie viele Azubis hat die b4?",
@@ -69,7 +69,7 @@
         "btn3": "8",
         "btn4": "9",
         "correct": 2,
-        "time": 10000
+        "time": 10
     },
     {
         "text": "Wer hat 80 Hühner?",
@@ -78,7 +78,7 @@
         "btn3": "Uta",
         "btn4": "Swantje",
         "correct": 0,
-        "time": 30000
+        "time": 30
     },
     {
         "text": "We viele Nadeln hat ein durchschnittlicher, 1,70m hoher Weihnachtsbaum?",
@@ -87,6 +87,6 @@
         "btn3": "420.000",
         "btn4": "Ich bin zu nüchtern für den scheiß",
         "correct": 3,
-        "time": 30000
+        "time": 30
     }
 ]

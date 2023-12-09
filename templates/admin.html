@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" class="create-questions center">
+<!--<form method="post" class="create-questions center"> -->
+<div>
     <div class="room-code">
         <h3>Admincode: {{admincode}}</h3>
         <h3>Roomcode: {{usercode}}</h3>
     </div>
 
-    {% if error %}
-    <div class="card text-bg-danger text-center" id="alert-admin">
-        <div class="card-body">
-            <h5 class="card-title">{{error}}</h5>
+    <div id="error-Container">
+        {% if error %}
+        <div class="card text-bg-danger text-center" id="alert-admin">
+            <div class="card-body">
+                <h5 class="card-title" id="error">{{error}}</h5>
+            </div>
         </div>
+        {% endif %}
     </div>
-    {% endif %}
 
     <div class="quiz-control">
-        <p>Current question: <br>{{currentquestion}}</p>
-        <button class="btn btn-primary" id="button-prev" name="previous">&laquo;</button>
+        <p>Current question: <br><div id="currentquestion">{{currentquestion}}</div></p>
+        <button class="btn btn-primary" id="button-prev" name="previous" onclick="previous()">&laquo;</button>
         <button class="btn btn-primary" id="results" name="results">Ergebnis</button>
-        <button class="btn btn-primary" id="button-next" name="next">&raquo;</button>
+        <button class="btn btn-primary" id="button-next" name="next" onclick="next()">&raquo;</button>
     </div>
 
     <div class="edit-questions">
@@ -27,9 +30,8 @@
             <textarea class="form-control" name="questions" id="edit-questions" rows="2">{{questions}}</textarea>
             <label class="form-label" for="edit-questions">Fragen bearbeiten</label>
         </div>
-        <button class="btn btn-primary" name="commit" id="admin-commit">Übernehmen</button>
+        <button class="btn btn-primary" name="commit" id="admin-commit" onclick="adminCommit()">Übernehmen</button>
     </div>
-
 
     <div class="connected-users center">
         <h2>User im Raum</h2>
@@ -38,12 +40,13 @@
             <div class="user" id="{{user.name}}">
                 <strong>{{user.name}}</strong>
                 <button class="kick-button" name="kick" value="{{user.name}}">Kick</button>
-                {{user.score}}
+                <div class="score">{{user.score}}</div>
             </div>
             {% endfor %}
         </div>
     </div>
 
+    <!-- JavaScript dies das -->
     <script type="text/javascript">
         var socketio = io();
 
@@ -61,12 +64,64 @@
             users.innerHTML += content;
         };
 
+        const setError = (errormsg) => {
+            const errorfield = document.getElementById("error");
+            
+            if (errorfield != null){
+                errorfield.innerHTML = errormsg;
+                return;
+            }
+
+            document.getElementById("error-Container").innerHTML = `
+            <div class="card text-bg-danger text-center" id="alert-admin">
+                <div class="card-body">
+                    <h5 class="card-title" id="error">${errormsg}</h5>
+                </div>
+            </div>
+            `;
+        }
+
+        /////////////////////////////////////////////////////////////
+
+        const UpdateQuestion = (curr, questions) => {
+            document.getElementById("currentquestion").innerHTML = curr;
+
+            document.getElementById("edit-questions").innerHTML = questions;
+        }
+
         const RemoveUser = (name) => {
-            document.getElementById("name").remove();
+            document.getElementById(name).remove();
         };
 
+        const previous = () => {
+            socketio.emit("previous", {data: true});
+        };
+        
+        const next = () => {
+            socketio.emit("next", {data: true});
+        };
+
+        const adminCommit = () => {
+            questions = document.getElementById("edit-questions").value
+
+            socketio.emit("commit", {data: {questions: questions}});
+
+            alert("Commit Sent");
+        }
+
+        ///////////////////////////////////////////////////////////// Sockets
+
+        socketio.on("error", (data) => {
+            setError(data);
+        });
+        
         socketio.on("userJoin", (data) => {
             DisplayUser(data.name, data.score);
+        });
+        
+        socketio.on("updateQuestions", (data) => {
+            alert(data);
+            UpdateQuestion(data.currentquestion, data.questions);
         });
 
         socketio.on("userLeve", (data) => {
@@ -74,10 +129,9 @@
         });
 
         socketio.on("changeScore", (data) => {
-            alert(data.name + " " + data.score);
-            document.getElementById(data.name).getElementsByClassName("score").innerHTML = data.score;
+            document.getElementById(data.name).getElementsByClassName("score")[0].textContent = data.score;
         });
     </script>
-
-</form>
+</div>
+<!--</form>-->
 {% endblock %}
