@@ -34,7 +34,7 @@
     // Timer Thingy
     const buttonDisableTimer = (timer, state) => {
         // if the question was already solved by the user then don't enable the buttons
-        if('{{alreadySolved|tojson}}'){
+        if('{{alreadySolved|tojson}}' == 'true'){
             return;
         }
         

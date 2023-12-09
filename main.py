@@ -122,7 +122,13 @@ def quiz():
     question = currentroom["questions"]
     questionobj = json.loads(question)
 
-    return render_template("quiz.html", question=questionobj[currentquestion], alreadySolved=True)
+    thisQuestion = questionobj[currentquestion]
+
+    hasUserAlreadyAnswered = name in thisQuestion["solvedBy"]
+
+    print(hasUserAlreadyAnswered)
+
+    return render_template("quiz.html", question=thisQuestion, alreadySolved=hasUserAlreadyAnswered)
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -210,12 +216,14 @@ def adminChange(data):
 ################### User Actions
 
 @socketio.on("answer")
-def connect(data):
+def answer(data):
     room = session.get("room")
     name = session.get("name")
     adminroom = session.get("adminroom")
     
-    question = json.loads(rooms[room]["questions"])[rooms[room]["currentquestion"]]
+    currentQuestion = rooms[room]["currentquestion"]
+
+    question = json.loads(rooms[room]["questions"])[currentQuestion]
 
     if room is None or name is None:
         return
@@ -229,6 +237,8 @@ def connect(data):
         timeRemaining = question["time"] - data["timedifference"]
         percentage = timeRemaining / question["time"]
         points = round(percentage * 1000)
+
+        question["solvedBy"].append(name)
         
         rooms[room]["members"][name]["score"] += points
         
