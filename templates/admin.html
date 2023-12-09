@@ -39,7 +39,7 @@
             {% for user in users %}
             <div class="user" id="{{user.name}}">
                 <strong>{{user.name}}</strong>
-                <button class="kick-button" name="kick" value="{{user.name}}">Kick</button>
+                <button class="kick-button btn btn-danger" name="kick" value="{{user.name}}">Kick</button>
                 <div class="score">{{user.score}}</div>
             </div>
             {% endfor %}
@@ -56,7 +56,7 @@
             const content = `
         <div class="user" id="${name}">
             <strong>${name}</strong>
-            <button class="kick-button" name="kick" value="${name}">Kick</button>
+            <button class="kick-button btn btn-danger" name="kick" value="${name}">Kick</button>
             <div class="score">${score}</div>
         </div>
         `;
