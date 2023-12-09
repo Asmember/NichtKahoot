@@ -22,11 +22,6 @@
 
 
     <style>
-        #intro {
-            background-image: url(https://apache-joel.renviol.dev/projekte/email_anmeldefomular/misc/background.jpg);
-            height: 100vh;
-        }
-
         /* Height for devices larger than 576px */
         @media (min-width: 992px) {
             #intro {
@@ -35,7 +30,7 @@
         }
 
         .navbar .nav-link {
-            color: #fff !important;
+            color: #000 !important;
         }
     </style>
 
@@ -44,7 +39,7 @@
         <div class="container-fluid">
             <!-- Navbar brand -->
             <a class="navbar-brand nav-link" href="/">
-                <div>Kahoot</div>
+                <div>QuizApp</div>
             </a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
                 aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,21 +60,23 @@
     <!-- Navbar -->
 
     <!-- Background image -->
-    <div id="intro" class="bg-image shadow-2-strong">
-        <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.9);">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-5 col-md-8">
-
-
-
-                        <div class="content">
-                            {% block content %} {% endblock %}
+    <div class="mask d-flex align-items-center h-100" style="background-color: hsl(220, 5%, 97%);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-5 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="content">
+                                {% block content %} {% endblock %}
+                            </div>
                         </div>
+                    </div>
 
 
-                        <script type="text/javascript"
-                            src="{{ url_for('static', filename='mdb5-free-standard/js/mdb.umd.min.js' )}}"></script>
+
+
+                    <script type="text/javascript"
+                        src="{{ url_for('static', filename='mdb5-free-standard/js/mdb.umd.min.js' )}}"></script>
 </body>
 
 </html>
