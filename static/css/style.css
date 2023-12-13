@@ -25,7 +25,6 @@
 
 .podium1 {
 
-    margin-left: 165px;
     font-size: 190px;
     width: 250px;
     height: 300px;
@@ -35,7 +34,7 @@
 
 .podium2 {
 
-    margin-left: 165px;
+
     width: 250px;
     font-size: 150px;
     height: 225px;
@@ -45,7 +44,7 @@
 
 .podium3 {
     
-    margin-left: 165px;
+
     width: 250px;
     font-size: 150px;
     height: 175px;
@@ -134,7 +133,11 @@
     position: absolute;
     top: 53%;
     left: 50%;
+
+    width: 93vw;
     transform: translate(-50%, -50%);
+    box-shadow: none;
+
 }
 
 .messages {
