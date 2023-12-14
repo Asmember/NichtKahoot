@@ -227,7 +227,6 @@
     socketio.on("questionsresult", (data) => {
         questionCount = [0, 0, 0, 0];
         showRanking(false)
-n
         cleanCounter();
         timeHandler(data.questions.time, data.questions.correct, true);
         update(data);
