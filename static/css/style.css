@@ -14,8 +14,9 @@
 .non-leader {
     margin-top: 65px;
 }
+
 .player4 {
-    
+
     font-size: 40px;
 }
 
@@ -24,8 +25,9 @@
 }
 
 .podium1 {
-
-   
+    display: grid;
+    justify-content: center;
+    align-content: center;
     font-size: 190px;
     width: 250px;
     height: 300px;
@@ -33,8 +35,16 @@
     border-radius: 25px;
 }
 
-.podium2 {
+#users {
+    overflow: auto;
+    height: 190px;
+    margin-top: 27.9px;
+}
 
+.podium2 {
+    display: grid;
+    justify-content: center;
+    align-content: center;
     width: 250px;
     font-size: 150px;
     height: 225px;
@@ -43,8 +53,8 @@
 }
 
 .podium3 {
-    
-   
+
+
     width: 250px;
     font-size: 150px;
     height: 175px;
@@ -78,6 +88,14 @@
     gap: 10px;
     /* color: hsl(220, 60%, 2%); */
 }
+
+.leader {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+
 
 .join {
     display: flex;

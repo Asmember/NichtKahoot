@@ -42,29 +42,32 @@
                     name="Button4">{{question.btn4}}</button>
             </div>
         </div>
-    </div> 
- 
-    <div id="ranking" class="card text-bg mb-3 ranking align-self-center"  style="left: 50%;
+    </div>
+
+    <div id="ranking" class="card text-bg mb-3 ranking align-self-center" style="left: 50%;
     transform: translate(-50%, -50%); ">
 
         <div class="leader  d-flex justify-content-evenly">
 
-            <div class=" player2" style="margin-top: 75px;">
+            <div class="d-flex flex-column mb-3 player2" style="margin-top: 75px;">
 
-                <div id="player2">2. Player, <br> Punkte
-
+                <div id="player2">2. Player, <br> Punkte</div>
+                <div class="leader">
+                    <div class="podium2"> 2 </div>
                 </div>
-                <div class="podium2"> 2 </div>
             </div>
-            <div class=" player1">
+            <div class="d-flex flex-column mb-3 player1">
                 <div id="player1">1. Player <br> Punkte</div>
-                <div class="podium1"> 1 </div>
+                <div class="leader">
+                    <div class="podium1"> 1 </div>
+                </div>
             </div>
 
-            <div class=" player3" style="    margin-top: 125px;">
-                <div id="player3">3. Player <br> Punkte
+            <div class="d-flex flex-column mb-3 player3" style="    margin-top: 125px;">
+                <div id="player3">3. Player <br> Punkte</div>
+                <div class="leader">
+                    <div class="podium3"> 3 </div>
                 </div>
-                <div class="podium3"> 3 </div>
             </div>
         </div>
 
@@ -91,7 +94,7 @@
     const timeHandler = (timer, answer, state) => {
         timer = timer + 10
         timerobj = document.getElementById("timer")
-        
+
 
         clearInterval(countdown);
 
@@ -116,12 +119,12 @@
         results = document.getElementById("ranking")
         timerobj = document.getElementById("timer")
 
-        ranking ? results.style.opacity = "1"  : results.style.opacity = "0"
-        ranking ? timerobj.style.opacity = "0"  : timerobj.style.opacity = "1"
+        ranking ? results.style.opacity = "1" : results.style.opacity = "0"
+        ranking ? timerobj.style.opacity = "0" : timerobj.style.opacity = "1"
     }
 
     const showSolution = (answer, state) => {
-        
+
         const solutionButtons = document.getElementsByClassName("result-button")
         const solutionCounters = document.getElementsByClassName("counter")
 
@@ -143,7 +146,7 @@
     }
 
     const updateUser = (data) => {
-   
+
         data.forEach((item, index, arr) => {
             document.getElementById(`player${index + 1}`).style.opacity = 1
             document.getElementById(`player${index + 1}`).innerHTML = `${arr[index].name} <br> Punkte: ${arr[index].score}`
@@ -179,7 +182,7 @@
     })
 
     socketio.on("leaderboard", (data) => {
-       
+
         updateUser(data.user);
         showRanking(data.toggle.data);
     })
@@ -206,7 +209,7 @@
         left: 50%;
         transform: translate(-50%);
         width: 94vw;
-        
+
         margin-top: 50px;
     }
 </style>
