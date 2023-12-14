@@ -354,7 +354,7 @@ def disconnect():
             leave_room(dashboardcode)
     else:
         leave_room(room)
-        if room in rooms:
+        if room in rooms and name is not None:
             socketio.emit("userLeve", {"name": name}, to=adminroom)
             del rooms[room]["members"][name]
 
