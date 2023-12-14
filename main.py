@@ -193,7 +193,7 @@ def home():
 
             session["adminroom"] = adminroom
             return redirect(url_for("admin"))
-        elif room not in rooms:
+        elif room not in rooms and room not in adminrooms:
             return render_template("home.html", error = "Invalid code", code=room, name=name, disableCreateNew = isRoomCode)
         
         if name == "admin" and room in adminrooms:
