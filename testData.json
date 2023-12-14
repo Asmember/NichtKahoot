@@ -6,8 +6,7 @@
         "btn3": "", 
         "btn4": "", 
         "correct": 4, 
-        "time": 0, 
-        "solvedBy": []
+        "time": 0
     },
     {
         "text": "Welche Farbe hat das b4 Logo?", 
@@ -16,8 +15,7 @@
         "btn3": "Rot & Weis", 
         "btn4": "Pink & Lila", 
         "correct": 0, 
-        "time": 20, 
-        "solvedBy": []
+        "time": 20
     },
     {
         "text": "Wer schwimmt den ganzen Tag im Aquarium?",
@@ -26,8 +24,7 @@
         "btn3": "Kalle",
         "btn4": "Dieter",
         "correct": 2,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Wer hat die Gitarrenhelden mitgegründet?",
@@ -36,8 +33,7 @@
         "btn3": "Mohammed",
         "btn4": "Marius F.",
         "correct": 1,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Was gilt als das inoffizielle TRAFFIQX Maskottchen?",
@@ -46,8 +42,7 @@
         "btn3": "Schlange",
         "btn4": "Otter",
         "correct": 3,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Wer gehört nicht zur b4 Teslaflotte?",
@@ -56,8 +51,7 @@
         "btn3": "Steffen",
         "btn4": "Thorsten",
         "correct": 3,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Wer ist die jüngste und die älteste Person bei b4?",
@@ -66,8 +60,7 @@
         "btn3": "Armin, Armin",
         "btn4": "Leon, Bernd",
         "correct": 0,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Welcher Spruch begrüßt uns an der Kaffeemaschine?",
@@ -76,8 +69,7 @@
         "btn3": "Kaffee, der jugendliche Energiebooster für kalte Tage",
         "btn4": "Programmierer, Menschen die Kaffee in Bugs verwandeln",
         "correct": 1,
-        "time": 45,
-        "solvedBy": []
+        "time": 45
     },
     {
         "text": "Wieviel Geld wird pro Woche etwa für süßes ausgegeben?",
@@ -86,8 +78,7 @@
         "btn3": "42€",
         "btn4": "90€",
         "correct": 1,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Wie viele Azubis hat die b4?",
@@ -96,8 +87,7 @@
         "btn3": "8",
         "btn4": "9",
         "correct": 2,
-        "time": 10,
-        "solvedBy": []
+        "time": 10
     },
     {
         "text": "Welcher Mitarbeiter der b4 hat 80 Hühner?",
@@ -106,8 +96,7 @@
         "btn3": "Uta",
         "btn4": "Swantje",
         "correct": 0,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     },
     {
         "text": "Wie viele Nadeln hat ein durchschnittlicher, 1,70m hoher Weihnachtsbaum?",
@@ -116,7 +105,6 @@
         "btn3": "420.000",
         "btn4": "Ich bin zu nüchtern für den scheiß",
         "correct": 3,
-        "time": 30,
-        "solvedBy": []
+        "time": 30
     }
 ]

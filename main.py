@@ -149,7 +149,7 @@ def quiz():
 
     thisQuestion = getCurrentQuestion(room)
 
-    hasUserAlreadyAnswered = name in thisQuestion["solvedBy"]
+    hasUserAlreadyAnswered = "solvedBy" in thisQuestion and name in thisQuestion["solvedBy"]
 
     return render_template("quiz.html", question=thisQuestion, alreadySolved=hasUserAlreadyAnswered)
 
@@ -303,6 +303,10 @@ def answer(data):
         timeRemaining = question["time"] - data["timedifference"]
         percentage = timeRemaining / question["time"]
         points = round(percentage * 1000)
+
+        if "solvedBy" not in question:
+            rooms[room]["questions"][getCurrIndexByRoom(room)]["solvedBy"] = []
+            question = getCurrentQuestion(room)
 
         question["solvedBy"].append(name)
         
