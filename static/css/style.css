@@ -16,7 +16,6 @@
 }
 
 .player4 {
-
     font-size: 40px;
 }
 
@@ -25,6 +24,7 @@
 }
 
 .podium1 {
+
     display: grid;
     justify-content: center;
     align-content: center;
@@ -34,6 +34,7 @@
     background: red;
     border-radius: 25px;
 }
+
 
 #users {
     overflow: auto;
@@ -53,7 +54,7 @@
 }
 
 .podium3 {
-
+    
 
     width: 250px;
     font-size: 150px;
@@ -151,9 +152,11 @@
     position: absolute;
     top: 53%;
     left: 50%;
+
     width: 93vw;
     transform: translate(-50%, -50%);
     box-shadow: none;
+
 }
 
 .messages {

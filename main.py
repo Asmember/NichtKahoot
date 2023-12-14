@@ -149,7 +149,7 @@ def quiz():
 
     thisQuestion = getCurrentQuestion(room)
 
-    hasUserAlreadyAnswered = name in thisQuestion["solvedBy"]
+    hasUserAlreadyAnswered = "solvedBy" in thisQuestion and name in thisQuestion["solvedBy"]
 
     return render_template("quiz.html", question=thisQuestion, alreadySolved=hasUserAlreadyAnswered)
 
@@ -193,7 +193,7 @@ def home():
 
             session["adminroom"] = adminroom
             return redirect(url_for("admin"))
-        elif room not in rooms:
+        elif room not in rooms and room not in adminrooms:
             return render_template("home.html", error = "Invalid code", code=room, name=name, disableCreateNew = isRoomCode)
         
         if name == "admin" and room in adminrooms:
@@ -304,6 +304,10 @@ def answer(data):
         percentage = timeRemaining / question["time"]
         points = round(percentage * 1000)
 
+        if "solvedBy" not in question:
+            rooms[room]["questions"][getCurrIndexByRoom(room)]["solvedBy"] = []
+            question = getCurrentQuestion(room)
+
         question["solvedBy"].append(name)
         
         rooms[room]["members"][name]["score"] += points
@@ -354,7 +358,7 @@ def disconnect():
             leave_room(dashboardcode)
     else:
         leave_room(room)
-        if room in rooms:
+        if room in rooms and name is not None:
             socketio.emit("userLeve", {"name": name}, to=adminroom)
             del rooms[room]["members"][name]
 

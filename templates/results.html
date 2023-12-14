@@ -40,14 +40,17 @@
                     name="Button3">{{question.btn3}}</button>
                 <button class="col-4 quiz-button btn btn-info result-button" id="Button4"
                     name="Button4">{{question.btn4}}</button>
+
             </div>
         </div>
     </div>
 
     <div id="ranking" class="card text-bg mb-3 ranking align-self-center" style="left: 50%;
+
     transform: translate(-50%, -50%); ">
 
         <div class="leader  d-flex justify-content-evenly">
+
 
             <div class="d-flex flex-column mb-3 player2" style="margin-top: 75px;">
 
@@ -55,6 +58,7 @@
                 <div class="leader">
                     <div class="podium2"> 2 </div>
                 </div>
+
             </div>
             <div class="d-flex flex-column mb-3 player1">
                 <div id="player1">1. Player <br> Punkte</div>
@@ -68,6 +72,54 @@
                 <div class="leader">
                     <div class="podium3"> 3 </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="non-leader d-flex justify-content-evenly">
+
+
+            <p id="player4" class="player4">
+                4. Player <br> Punkte:
+            </p>
+
+            <p id="player5" class="player5">
+                5. Player <br> Punkte:
+            </p>
+        </div>
+
+        <div class="non-leader d-flex justify-content-evenly">
+
+
+            <p id="player4" class="player4">
+                4. Player <br> Punkte:
+            </p>
+
+            <p id="player5" class="player5">
+                5. Player <br> Punkte:
+            </p>
+        </div>
+    </div>
+    <div id="ranking" class="card text-bg mb-3 ranking" style="left: 50%;
+    transform: translate(-50%, -50%); height: 71vh;">
+
+        <div class="leader row justify-content-center">
+
+            <div class="col-4 player2" style="margin-top: 75px;">
+
+                <div id="player2">2. Player, <br> Punkte
+
+                </div>
+                <div class="podium2"> 2 </div>
+            </div>
+            <div class="col-4 player1">
+                <div id="player1">1. Player <br> Punkte</div>
+                <div class="podium1"> 1 </div>
+            </div>
+
+            <div class="col-4 player3" style="    margin-top: 125px;">
+                <div id="player3">3. Player <br> Punkte
+                </div>
+                <div class="podium3"> 3 </div>
             </div>
         </div>
 
@@ -117,6 +169,7 @@
 
     const showRanking = (ranking) => {
         results = document.getElementById("ranking")
+
         timerobj = document.getElementById("timer")
 
         ranking ? results.style.opacity = "1" : results.style.opacity = "0"
@@ -124,6 +177,7 @@
     }
 
     const showSolution = (answer, state) => {
+
 
         const solutionButtons = document.getElementsByClassName("result-button")
         const solutionCounters = document.getElementsByClassName("counter")
@@ -190,7 +244,6 @@
     socketio.on("questionsresult", (data) => {
         questionCount = [0, 0, 0, 0];
         showRanking(false)
-
         cleanCounter();
         timeHandler(data.questions.time, data.questions.correct, true);
         update(data);
@@ -209,7 +262,6 @@
         left: 50%;
         transform: translate(-50%);
         width: 94vw;
-
         margin-top: 50px;
     }
 </style>
