@@ -8,24 +8,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      image-tag: ${{ steps.set-tag.outputs.image-tag }}
+      repo-owner: ${{ steps.set-variables.outputs.repo-owner }}
+      repo-name: ${{ steps.set-variables.outputs.repo-name }}
     steps:
     - uses: actions/checkout@v4
+
     - name: Set lowercase repository owner and name
       id: set-variables
       run: |
-        REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-        REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
-        echo "repo-owner=$REPO_OWNER" >> $GITHUB_ENV
-        echo "repo-name=$REPO_NAME" >> $GITHUB_ENV
-        echo "::set-output name=repo-owner::$REPO_OWNER"
-        echo "::set-output name=repo-name::$REPO_NAME"
-        
+        echo "repo-owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        echo "repo-name=$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        echo "::set-output name=repo-owner::$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')"
+        echo "::set-output name=repo-name::$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')"
+
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-      
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/${{ steps.set-variables.outputs.repo-owner }}/${{ steps.set-variables.outputs.repo-name }}:latest
 
   push:
     needs: build
@@ -33,9 +34,10 @@ jobs:
     steps:
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-      
+
     - name: Push the Docker image
-      run: docker push ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
+      run: |
+        docker push ghcr.io/${{ needs.build.outputs.repo-owner }}/${{ needs.build.outputs.repo-name }}:latest
 
   scan:
     needs: push
@@ -44,4 +46,4 @@ jobs:
     - name: Scan the Docker image for vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
+        image-ref: ghcr.io/${{ needs.build.outputs.repo-owner }}/${{ needs.build.outputs.repo-name }}:latest
