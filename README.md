@@ -1,7 +1,7 @@
 # NichtKahoot
 Welcome to NichtKahoot, a Python web application that attempts to capture the essence of the popular quiz platform Kahoot, but waaaaaaaaaay worse in every way.
 
-# How To Use
+# How To Deploy
 ## direct deployment:
 ### Install Python
 The first step to get this puppy running is installing Python (I tested this with versions: `3.11`; `3.12.1`), you want to use the official installer from the creators [here](https://www.python.org/).
@@ -26,7 +26,14 @@ Follow this [guide](https://docs.docker.com/get-docker/) to install docker.
 
 ### Pull and run image
 Run the following command to pull and run the Container.
-`docker run -d -p 5001:5001 kodanlng/testinig:latest`
+`docker run -d -p 5001:5001 kodanlng/quizapp:latest`
 
-## Enjoy
-That's all you need to do, now you can access the webapp through your web browser here: `http://localhost:5001` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001` if you want to access it from a different computer.
+# How To Use
+After completing installation you can access the webapp through your web browser here: `http://localhost:5001` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001` if you want to access it from a different computer.
+
+## Accessing Already Created Game
+Either type in a name & room code 
+or use: `http://localhost:5001?code=[ROOMCODE]` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001?code=[ROOMCODE]`
+
+## Accessing dashboard
+Access the dashboard using: `http://localhost:5001/result?dashboard=[DASHBOARDKEY]` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001/result?dashboard=[DASHBOARDKEY]`
