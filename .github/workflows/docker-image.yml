@@ -11,16 +11,21 @@ jobs:
       image-tag: ${{ steps.set-tag.outputs.image-tag }}
     steps:
     - uses: actions/checkout@v4
-    - name: Set lowercase repository name
-      id: set-tag
+    - name: Set lowercase repository owner and name
+      id: set-variables
       run: |
-        IMAGE_TAG="ghcr.io/${{ github.repository_owner }}/$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]'):latest"
-        echo "image-tag=$IMAGE_TAG" >> $GITHUB_ENV
-        echo "::set-output name=image-tag::$IMAGE_TAG"
+        REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+        REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+        echo "repo-owner=$REPO_OWNER" >> $GITHUB_ENV
+        echo "repo-name=$REPO_NAME" >> $GITHUB_ENV
+        echo "::set-output name=repo-owner::$REPO_OWNER"
+        echo "::set-output name=repo-name::$REPO_NAME"
+        
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ steps.set-tag.outputs.image-tag }}
+      run: docker build . --file Dockerfile --tag ghcr.io/$REPO_OWNER/$REPO_NAME:latest
 
   push:
     needs: build
@@ -28,6 +33,7 @@ jobs:
     steps:
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+      
     - name: Push the Docker image
       run: docker push ${{ needs.build.outputs.image-tag }}
 
