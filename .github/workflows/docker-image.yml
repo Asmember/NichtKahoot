@@ -15,9 +15,6 @@ jobs:
         echo "repo-owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
         echo "repo-name=$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-    - name: Log in to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ghcr.io/${{ env.repo-owner }}/${{ env.repo-name }}:latest
 
@@ -29,7 +26,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
     - name: Push the Docker image
-      run: docker push ghcr.io/${{ needs.build.outputs.repo-owner }}/${{ needs.build.outputs.repo-name }}:latest
+      run: docker push ghcr.io/${{ env.repo-owner }}/${{ env.repo-name }}:latest
 
   scan:
     needs: push
@@ -38,6 +35,4 @@ jobs:
     - name: Scan the Docker image for vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ghcr.io/${{ needs.build.outputs.repo-owner }}/${{ needs.build.outputs.repo-name }}:latest
-
-
+        image-ref: ghcr.io/${{ env.repo-owner }}/${{ env.repo-name }}:latest
