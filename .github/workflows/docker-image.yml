@@ -22,6 +22,11 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: Set lowercase repository owner and name
+      run: |
+        echo "repo-owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        echo "repo-name=$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+    
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
@@ -32,6 +37,11 @@ jobs:
     needs: push
     runs-on: ubuntu-latest
     steps:
+    - name: Set lowercase repository owner and name
+      run: |
+        echo "repo-owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        echo "repo-name=$(echo '${{ github.event.repository.name }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+    
     - name: Scan the Docker image for vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
