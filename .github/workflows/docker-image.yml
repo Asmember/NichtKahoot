@@ -25,7 +25,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ghcr.io/$REPO_OWNER/$REPO_NAME:latest
+      run: docker build . --file Dockerfile --tag ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
 
   push:
     needs: build
@@ -35,7 +35,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
       
     - name: Push the Docker image
-      run: docker push ${{ needs.build.outputs.image-tag }}
+      run: docker push ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
 
   scan:
     needs: push
@@ -44,4 +44,4 @@ jobs:
     - name: Scan the Docker image for vulnerabilities
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ needs.build.outputs.image-tag }}
+        image-ref: ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}:latest
