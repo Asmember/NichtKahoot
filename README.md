@@ -36,4 +36,4 @@ Either type in a name & room code
 or use: `http://localhost:5001?code=[ROOMCODE]` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001?code=[ROOMCODE]`
 
 ## Accessing dashboard
-Access the dashboard using: `http://localhost:5001/result?dashboard=[DASHBOARDKEY]` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001/result?dashboard=[DASHBOARDKEY]`
+Access the dashboard using: `http://localhost:5001/results?dashboard=[DASHBOARDKEY]` or `http://YOUR.COMPUTERS.IP.ADDRESS:5001/results?dashboard=[DASHBOARDKEY]`
