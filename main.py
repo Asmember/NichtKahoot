@@ -73,7 +73,7 @@ def updateQuestions(adminroom):
     # socketio.emit("updateQuestions", content, to=adminroom)
 
 def jsonLoadsQuestions(room):
-    return json.loads("\"" + str(getCurrentQuestions(room)) + "\"")
+    return json.loads(str(getCurrentQuestions(room)))
 
 def getDashboardCodeFromRoomCode(room):
     keys = [i for i in dashboard.keys()]
