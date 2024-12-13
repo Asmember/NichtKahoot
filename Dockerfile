@@ -1,5 +1,5 @@
 # Verwende das neueste Python-Image als Basis
-FROM python:latest
+FROM python:3.12.1-bookworm
 
 # Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
