@@ -1,11 +1,119 @@
 [
     {
-        "text": "Warteraum", 
-        "btn1": "", 
-        "btn2": "", 
-        "btn3": "", 
-        "btn4": "", 
-        "correct": 4, 
+        "text": "Warteraum",
+        "btn1": "",
+        "btn2": "",
+        "btn3": "",
+        "btn4": "",
+        "correct": 4,
         "time": 0
+    },
+    {
+        "text": "Wie viele Autos können auf dem b4 Parkplatz geladen werden?",
+        "btn1": "1",
+        "btn2": "2",
+        "btn3": "6",
+        "btn4": "4",
+        "correct": 2,
+        "time": 20
+    },
+    {
+        "text": "Was ist der Rekord an neuen Laptops die ein einzelner Mitarbeiter innerhalb eines Jahr erhalten hat?",
+        "btn1": "7",
+        "btn2": "4",
+        "btn3": "2",
+        "btn4": "3",
+        "correct": 1,
+        "time": 20
+    },
+    {
+        "text": "Wie viele Azubis hat b4?",
+        "btn1": "2",
+        "btn2": "9",
+        "btn3": "6",
+        "btn4": "7",
+        "correct": 1,
+        "time": 20
+    },
+    {
+        "text": "Welcher Satz fällt am häufigsten während der Status Meetings?",
+        "btn1": "Du bist noch stumm!",
+        "btn2": "Kamera an!",
+        "btn3": "Mission",
+        "btn4": "Vision",
+        "correct": 0,
+        "time": 20
+    },
+    {
+        "text": "In welchem Monat dieses Jahres wurden die meisten Bugs eröffnet.",
+        "btn1": "Januar",
+        "btn2": "April",
+        "btn3": "Oktober",
+        "btn4": "November",
+        "correct": 3,
+        "time": 20
+    },
+    {
+        "text": "Welcher Mitarbeiter/Azubi ist jünger als das Unternehmen?",
+        "btn1": "Paul",
+        "btn2": "Dieter",
+        "btn3": "Marius",
+        "btn4": "Nils",
+        "correct": 0,
+        "time": 20
+    },
+    {
+        "text": "Wer ist unter dem Synonym 'Grillterminator' bekannt?",
+        "btn1": "Lena",
+        "btn2": "JP",
+        "btn3": "Leon",
+        "btn4": "Bernd",
+        "correct": 2,
+        "time": 20
+    },
+    {
+        "text": "Wie lautet der Name des 2024 neu dazugekommenen Gebäudekomplexes?",
+        "btn1": "TRAFFIQX Trainingsacademy",
+        "btn2": "TRAFFIQX Trainings Lab",
+        "btn3": "TRAFFIQX Otteroase",
+        "btn4": "TRAFFIQX Networking Center",
+        "correct": 3,
+        "time": 20
+    },
+    {
+        "text": "Zu welchem Provider gehört das Portal 'ivi'?",
+        "btn1": "SGH",
+        "btn2": "Asterion",
+        "btn3": "BeCloud",
+        "btn4": "b4",
+        "correct": 0,
+        "time": 20
+    },
+    {
+        "text": "Was ist die höchste Anzahl an Tickets, die dieses Jahr von einer Person geschlossen wurden?",
+        "btn1": "726",
+        "btn2": "318",
+        "btn3": "543",
+        "btn4": "458",
+        "correct": 2,
+        "time": 20
+    },
+    {
+        "text": "Mit welchem Tier wurde unser geliebtes Maskottchen verwechselt? :(",
+        "btn1": "Bieber",
+        "btn2": "Fuchs",
+        "btn3": "Igel",
+        "btn4": "Papagei",
+        "correct": 0,
+        "time": 20
+    },
+    {
+        "text": "Wie viele Schritte hatte die Person mit den meisten wöchentlichen Schritten in der SuccessManagement StepUp Challenge?",
+        "btn1": "87645",
+        "btn2": "41919",
+        "btn3": "67890",
+        "btn4": "159100",
+        "correct": 3,
+        "time": 20
     }
 ]
