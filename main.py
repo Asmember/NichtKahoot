@@ -52,7 +52,7 @@ def changeCurrentQuestion(data, skipquestion):
             return
 
         moreCurrIndex = currIndex + skipquestion
-        if moreCurrIndex >= 0 and moreCurrIndex < len(jsonLoadsQuestions(room)):
+        if moreCurrIndex >= 0 and moreCurrIndex < len(getCurrentQuestions(room)):
             rooms[room]["currentquestion"] += skipquestion
             print("Room " + room + " chaneged to question " + str(moreCurrIndex))
             updateQuestions(adminroom)
@@ -71,9 +71,6 @@ def updateQuestions(adminroom):
     # !!!!! THIS IS BROKEN, PLS FIX !!!!!
     # Workaround is HERE to help it works now J.W
     # socketio.emit("updateQuestions", content, to=adminroom)
-
-def jsonLoadsQuestions(room):
-    return json.loads(str(getCurrentQuestions(room)))
 
 def getDashboardCodeFromRoomCode(room):
     keys = [i for i in dashboard.keys()]
